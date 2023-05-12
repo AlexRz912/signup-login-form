@@ -5,6 +5,7 @@ Once you signed up, you can login using mail and password. says welcome onsite i
 
 I used MAMP to open those pages and PHPMYADMIN to create the SQL database.
 
-You need to open signup-form.php to start. If you already signed up before, you can open login-form.php (usi
+You need to open signup-form.php to start. If you already signed up before, you can open login-form.php
 
-I'll later implement a page from which you can decide to sign up OR login and some content on the home page
+I'll later implement a page from which you can decide to sign up OR login and some content on the home page. 
+Allow to upload a profile picture and display it, and the possibility to put a comment on the home page.
