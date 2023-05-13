@@ -1,16 +1,13 @@
 <?php
-try
-{
-	// On se connecte à MySQL
-	$mysqlClient = new PDO('mysql:host=localhost;dbname=mydatabase;charset=utf8', 'root', 'root');
+try {
+    // On se connecte à MySQL
+    $mysqlClient = new PDO('mysql:host=localhost;dbname=mydatabase;charset=utf8', 'root', 'root');
+} catch (Exception $e) {
+    // En cas d'erreur, on affiche un message et on arrête tout
+    die('Erreur : ' . $e->getMessage());
 }
-catch(Exception $e)
-{
-	// En cas d'erreur, on affiche un message et on arrête tout
-        die('Erreur : '.$e->getMessage());
-} ?>
 
-<?php  /*
+/*
 setcookie() {
 
     'LOGGED_USER',
@@ -20,15 +17,11 @@ setcookie() {
         'secure' => true,
         'httponly' => true,
     ]
-}  */ ?>
-
-
-
-    <?php
+}  */
 
 $missingFields = [];
 
-switch(true) {
+switch (true) {
     case empty($_POST['name']):
         $missingFields[] = 'prénom'; #Si le champ prénom n'est pas indiqué alors 'prénom' est stocké dans missingFields
         break;
@@ -43,12 +36,12 @@ switch(true) {
         break;
 }
 
-if(!empty($missingFields)) {
+if (!empty($missingFields)) {
     $errorMessage = "Veuillez indiquer votre ";
-    if(count($missingFields) > 1) { #Si il y a plus d'un champ manquant alors
+    if (count($missingFields) > 1) { #Si il y a plus d'un champ manquant alors
         $errorMessage .= implode(', ', $missingFields) . "."; #alors on rajoute au message la concaténation de tout les champs manquant séparés par une virgule et un espace, et terminer la phrase par un point
     } else { #Sinon 
-        $errorMessage .= $missingFields[0] . "."; 
+        $errorMessage .= $missingFields[0] . ".";
     }
     echo $errorMessage;
     include_once('signup-form.php');
@@ -58,22 +51,18 @@ if(!empty($missingFields)) {
 
         $newUserUpload = $mysqlClient->prepare($sqlQuery);
         $newUserUpload->execute(['name' => $_POST['name'],
-        'last_name' => $_POST['lastname'],
-        'email' => $_POST['email'],
-        'password' => $_POST['password'],
-    ]);
+            'last_name' => $_POST['lastname'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+        ]);
 
-    echo "Votre compte à bien été crée !";
-    include_once('login-form.php');
+        echo "Votre compte à bien été crée !";
+        include_once('login-form.php');
 
     } else {
         echo 'Veuillez indiquer une addresse mail valide.';
         include_once('signup-form.php');
     }
 
-    
+
 }
-
-?>
-        
-
